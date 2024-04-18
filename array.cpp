@@ -1,5 +1,7 @@
 #include <cstdio>
 #include "array.h"
+#include <cstdlib>
+
 void displayArray(int *array)
 {
     for(int i = 0; i < SIZE; i++){
@@ -74,4 +76,18 @@ void insertionSort(int *array) {
         }
         *(array+j+1) = key;
     }
+}
+
+void saveData(int *array)
+{
+    fptr = fopen("array.txt", "a");
+    if (fptr == 0)
+    {
+        printf("Blad otwierania pliku!\n");
+    }
+    for(int i=0; i<SIZE; i++) {
+        fprintf(fptr, "array[%d]= %d \n", i, *(array + i) );
+    }
+    fclose(fptr);
+
 }

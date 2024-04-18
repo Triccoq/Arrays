@@ -14,6 +14,7 @@ void menu(void) {
     printf("5- Average Value in Array\n");
     printf("6- Median Value in Array \n");
     printf("7- Save data into Array \n");
+    printf("8- Restore data from Array \n");
     printf("0-EXIT\n");
     printf("Select an option:  ");
 }
@@ -58,6 +59,9 @@ int main() {
                 else {
                     printf("Something went wrong... \n \n");
                 }
+                break;
+            case 8:
+                restoreDataFromFile(array);
                 break;
 
         }

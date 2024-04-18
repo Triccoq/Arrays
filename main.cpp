@@ -1,7 +1,8 @@
 #include <iostream>
+#include <cstdlib>
 #include "array.h"
 
-
+FILE *fptr;
 int array[SIZE] = {1, 2, 3, 50, -5, 6, 7, 8, 9, 10};
 
 void menu(void) {
@@ -12,11 +13,13 @@ void menu(void) {
     printf("4- Minimum Value in Array\n");
     printf("5- Average Value in Array\n");
     printf("6- Median Value in Array \n");
+    printf("7- Save data into Array \n");
     printf("0-EXIT\n");
     printf("Select an option:  ");
 }
 
 int main() {
+    fptr=fopen("array.txt", "w");
     int option=0;
     do{
         menu();
@@ -46,6 +49,15 @@ int main() {
                 break;
             case 6:
                 printf("Median value = %d \n", findMedianValue(array));
+                break;
+            case 7:
+                saveData(array);
+                if(fptr!=0) {
+                    printf("Array saved to the file \n \n");
+                }
+                else {
+                    printf("Something went wrong... \n \n");
+                }
                 break;
 
         }

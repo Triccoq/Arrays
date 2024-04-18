@@ -9,6 +9,7 @@ void enterDataIntoArray(int *array);
 int findMedianValue(int *array);
 void insertionSort(int *array);
 void saveData(int *array);
+void restoreDataFromFile (int *array);
 #define Array_ARRAY_H
 
 #endif

@@ -91,3 +91,25 @@ void saveData(int *array)
     fclose(fptr);
 
 }
+
+void restoreDataFromFile (int *array)
+{
+    fptr = fopen("array.txt", "r+");
+    char fileLine[50];
+    if (fptr != 0)
+    {
+        while (!feof(fptr))
+        {
+            fgets(fileLine, 50, fptr);
+            if (!feof(fptr))
+            {
+                puts(fileLine);
+            }
+        }
+    }
+    else
+    {
+        printf("\nBlad otwierania pliku!\n");
+    }
+    fclose(fptr);
+}

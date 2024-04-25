@@ -3,18 +3,19 @@
 #include "array.h"
 
 FILE *fptr;
-int array[SIZE] = {1, 2, 3, 50, -5, 6, 7, 8, 9, 10};
+//int array[SIZE] = {1, 2, 3, 50, -5, 6, 7, 8, 9, 10};
 
 void menu(void) {
     printf("\n");
     printf("1- Display Array\n");
-    printf("2- Enter Data Into Array\n");
+    printf("2- Enter 1 Value Into Array\n");
     printf("3- Maximum Value in Array\n");
     printf("4- Minimum Value in Array\n");
     printf("5- Average Value in Array\n");
     printf("6- Median Value in Array \n");
     printf("7- Save data into Array \n");
     printf("8- Restore data from Array \n");
+    printf("9- Delete 1 value from Array \n");
     printf("0-EXIT\n");
     printf("Select an option:  ");
 }
@@ -34,7 +35,7 @@ int main() {
                 break;
 
             case 2:
-                enterDataIntoArray(array);
+                enterValueIntoArray(array);
                 break;
 
             case 3:
@@ -62,6 +63,9 @@ int main() {
                 break;
             case 8:
                 restoreDataFromFile(array);
+                break;
+            case 9:
+                deleteValueFromArray(array);
                 break;
 
         }

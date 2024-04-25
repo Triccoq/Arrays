@@ -2,47 +2,59 @@
 #include "array.h"
 #include <cstdlib>
 
-void displayArray(int *array)
+void displayArray(DynamicArray *array)
 {
-    for(int i = 0; i < SIZE; i++){
-        printf("array[%d]= %d \n", i, *(array + i));
+    printf("Array (Size: %d, Capacity: %d): ", array->size, array->capacity);
+    for (int i = 0; i < array->size; i++) {
+        printf("%d ", array->data[i]);
     }
+    printf("\n");
 }
 
-int findMaximumValue(int *array)
+int findMaximumValue(DynamicArray *array)
 {
-    int max = *array;
-    for(int i = 1; i < SIZE; i++)
-    {
-        if(max < *(array + i))
-        {
-            max = *(array + i);
+    if (array->size == 0) {
+        printf("Array is empty.\n");
+        return 0;
+    }
+    int max = array->data[0];
+    for (int i = 1; i < array->size; i++) {
+        if (array->data[i] > max) {
+            max = array->data[i];
         }
     }
     return max;
 }
 
-int findMinimumValue(int *array)
+
+int findMinimumValue(DynamicArray *array)
 {
-    int min = *array;
-    for (int i = 1; i < SIZE; i++)
-    {
-        if (min > *(array + i)) {
-            min = *(array + i);
+    if (array->size == 0) {
+        printf("Array is empty.\n");
+        return 0;
+    }
+    int min = array->data[0];
+    for (int i = 1; i < array->size; i++) {
+        if (array->data[i] < min) {
+            min = array->data[i];
         }
     }
     return min;
 }
 
-float calculateAverage(int *array)
+float calculateAverage(DynamicArray *array)
 {
-    int sum = 0;
-    for (int i = 0; i < SIZE; i++) {
-        sum += *(array + i);
+    if (array->size == 0) {
+        printf("Array is empty.\n");
+        return 0;
     }
-    float average = (float) sum / SIZE;
-    return average;
+    int sum = 0;
+    for (int i = 0; i < array->size; i++) {
+        sum += array->data[i];
+    }
+    return (float)sum / array->size;
 }
+
 
 /*void enterDataIntoArray(int *array)
 {
@@ -53,72 +65,109 @@ float calculateAverage(int *array)
     }
 }
 */
-int findMedianValue(int *array)
+int findMedianValue(DynamicArray *array)
 {
 
-    int middle=SIZE/2;
-    insertionSort(array);
-    int median=(*(array+middle-1));
-    return median;
+    if (array->size % 2 == 0) {
+        return (array->data[array->size / 2] + array->data[array->size / 2 - 1]) / 2;
+    } else {
+        return array->data[array->size / 2];
+    }
+}
     //int median=(((*(array+(middle-1)))+(*(array+middle)))/2);
     //return median;
 
-}
-void insertionSort(int *array) {
-    int i, key, j;
-    for (i = 1; i < SIZE; i++) {
-        key = *(array+i);
-        j = i - 1;
 
-        while (j >= 0 && *(array+j) > key) {
-            *(array+j+1) = *(array+j);
+void insertionSort(DynamicArray *array) {
+    if (array->size <= 1) {
+        return; // No need to sort
+    }
+
+    for (int i = 1; i < array->size; i++) {
+        int key = array->data[i];
+        int j = i - 1;
+
+        while (j >= 0 && array->data[j] > key) {
+            array->data[j + 1] = array->data[j];
             j = j - 1;
         }
-        *(array+j+1) = key;
+        array->data[j + 1] = key;
     }
 }
 
-void saveData(int *array)
+void saveData(DynamicArray *array)
 {
-    fptr = fopen("array.txt", "a");
-    if (fptr == 0)
-    {
-        printf("Blad otwierania pliku!\n");
-    }
-    for(int i=0; i<SIZE; i++) {
-        fprintf(fptr, "array[%d]= %d \n", i, *(array + i) );
-    }
-    fclose(fptr);
-
-}
-
-void restoreDataFromFile (int *array)
-{
-    fptr = fopen("array.txt", "r+");
-    char fileLine[50];
-    if (fptr != 0)
-    {
-        while (!feof(fptr))
-        {
-            fgets(fileLine, 50, fptr);
-            if (!feof(fptr))
-            {
-                puts(fileLine);
-            }
+    fptr = fopen("array.txt", "w");
+    if (fptr != 0) {
+        for (int i = 0; i < array->size; i++) {
+            fprintf(fptr, "%d\n", array->data[i]);
         }
+        fclose(fptr);
+        printf("Data saved to file successfully.\n");
+    } else {
+        printf("Error opening file!\n");
     }
-    else
-    {
-        printf("\nBlad otwierania pliku!\n");
-    }
-    fclose(fptr);
 }
 
-void enterValueIntoArray(int *array)
-{
-    }
 
 
-void deleteValueFromArray(int *array)
+void restoreDataFromFile (DynamicArray *array)
 {
+    fptr = fopen("array.txt", "r");
+    if (fptr != NULL) {
+        char fileLine[50];
+        while (fgets(fileLine, sizeof(fileLine), fptr) != 0) {
+            printf("%s", fileLine);
+        }
+        fclose(fptr);
+        printf("Data restored from file successfully.\n");
+    } else {
+        printf("Error opening file!\n");
     }
+}
+
+void enterValueIntoArray(DynamicArray *array, int toAdd)
+{
+    if (array->size >= array->capacity) {
+        if (array->capacity == 0) {
+            array->capacity = 1;
+        } else {
+            array->capacity *= 2;
+        }
+        void *temp = realloc(array->data, array->capacity * sizeof(int));
+        if (temp == NULL) {
+            printf("Error: Memory reallocation failed.\n");
+            return;
+        }
+        array->data = (int *) temp;
+    }
+    array->data[array->size++] = toAdd;
+}
+
+
+void deleteValueFromArray(DynamicArray *array, int index)
+{
+    if (index < 0 || index >= array->size) {
+        printf("Invalid index\n");
+        return;
+    }
+    for (int i = index; i < array->size - 1; i++) {
+        array->data[i] = array->data[i + 1];
+    }
+    array->size--;
+}
+
+
+void initializeArray(DynamicArray *array) {
+    array->data = NULL;
+    array->size = 0;
+    array->capacity = 0;
+}
+
+void freeArray(DynamicArray *array) {
+    free(array->data);
+    array->data = NULL;
+    array->size = 0;
+    array->capacity = 0;
+    printf("The board has been wiped clean\n");
+}

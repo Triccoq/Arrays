@@ -5,6 +5,7 @@
 FILE *fptr;
 //int array[SIZE] = {1, 2, 3, 50, -5, 6, 7, 8, 9, 10};
 
+
 void menu(void) {
     printf("\n");
     printf("1- Display Array\n");
@@ -16,11 +17,14 @@ void menu(void) {
     printf("7- Save data into Array \n");
     printf("8- Restore data from Array \n");
     printf("9- Delete 1 value from Array \n");
+    printf("10- Free data in Array \n");
     printf("0-EXIT\n");
     printf("Select an option:  ");
 }
 
 int main() {
+    DynamicArray array;
+    initializeArray(&array);
     fptr=fopen("array.txt", "w");
     int option=0;
     do{
@@ -31,29 +35,32 @@ int main() {
             case 0:
                 break;
             case 1:
-                displayArray(array);
+                displayArray(&array);
                 break;
 
             case 2:
-                enterValueIntoArray(array);
+                int toAdd;
+                printf("Which element to add?\n");
+                scanf("%d", &toAdd);
+                enterValueIntoArray(&array, toAdd );
                 break;
 
             case 3:
-                printf("Maximum value = %d \n", findMaximumValue(array));
+                printf("Maximum value = %d \n", findMaximumValue(&array));
                 break;
 
             case 4:
-                printf("Minimum value = %d \n", findMinimumValue(array));
+                printf("Minimum value = %d \n", findMinimumValue(&array));
                 break;
 
             case 5:
-                printf("Average value = %f \n", calculateAverage(array));
+                printf("Average value = %f \n", calculateAverage(&array));
                 break;
             case 6:
-                printf("Median value = %d \n", findMedianValue(array));
+                printf("Median value = %d \n", findMedianValue(&array));
                 break;
             case 7:
-                saveData(array);
+                saveData(&array);
                 if(fptr!=0) {
                     printf("Array saved to the file \n \n");
                 }
@@ -62,16 +69,22 @@ int main() {
                 }
                 break;
             case 8:
-                restoreDataFromFile(array);
+                restoreDataFromFile(&array);
                 break;
             case 9:
-                deleteValueFromArray(array);
+                int toDelete;
+                printf("Which element to remove?\n");
+                scanf("%d", &toDelete);
+                deleteValueFromArray(&array, toDelete);
                 break;
-
+            case 10:
+                freeArray(&array);
+                break;
         }
 
     }while (option!=0);
     printf("THE END");
+    freeArray(&array);
     return 1;
 
 }

@@ -1,18 +1,27 @@
 #ifndef Array_ARRAY_H
 //#define SIZE 10
+
+typedef struct {
+    int *data;
+    int size;
+    int capacity;
+} DynamicArray;
+
+
 extern FILE *fptr;
-void displayArray(int *array);
-int findMaximumValue(int *array);
-int findMinimumValue(int *array);
-float calculateAverage(int *array);
+void displayArray(DynamicArray *array);
+int findMaximumValue(DynamicArray *array);
+int findMinimumValue(DynamicArray *array);
+float calculateAverage(DynamicArray *array);
 //void enterDataIntoArray(int *array);
-void enterValueIntoArray(int *array);
-void deleteValueFromArray(int *array);
-int findMedianValue(int *array);
-void insertionSort(int *array);
-void saveData(int *array);
-void restoreDataFromFile (int *array);
-void
+void enterValueIntoArray(DynamicArray *array, int element);
+void deleteValueFromArray(DynamicArray *array, int index);
+int findMedianValue(DynamicArray *array);
+void insertionSort(DynamicArray *array);
+void saveData(DynamicArray *array);
+void restoreDataFromFile (DynamicArray *array);
+void freeArray(DynamicArray *array);
+void initializeArray(DynamicArray *array);
 #define Array_ARRAY_H
 
 #endif

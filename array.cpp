@@ -44,7 +44,7 @@ float calculateAverage(int *array)
     return average;
 }
 
-void enterDataIntoArray(int *array)
+/*void enterDataIntoArray(int *array)
 {
     printf("Enter data into array \n");
     for(int i = 0; i < SIZE; i++){
@@ -52,7 +52,7 @@ void enterDataIntoArray(int *array)
         scanf("%d", (array + i));
     }
 }
-
+*/
 int findMedianValue(int *array)
 {
 
@@ -113,3 +113,12 @@ void restoreDataFromFile (int *array)
     }
     fclose(fptr);
 }
+
+void enterValueIntoArray(int *array)
+{
+    }
+
+
+void deleteValueFromArray(int *array)
+{
+    }

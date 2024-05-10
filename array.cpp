@@ -1,20 +1,23 @@
-#include <cstdio>
 #include "array.h"
-#include <cstdlib>
+#include <iostream>
+#include <conio.h>
+#include <fstream>
 
+
+using namespace std;
 void displayArray(DynamicArray *array)
 {
-    printf("Array (Size: %d, Capacity: %d): ", array->size, array->capacity);
+    cout<<"Array (Size: "<<array->size<<" Capacity: "<<array->capacity<<")"<<endl<<endl;
     for (int i = 0; i < array->size; i++) {
-        printf("%d ", array->data[i]);
+        cout<<array->data[i]<<" ";
     }
-    printf("\n");
+   cout<<endl;
 }
 
 int findMaximumValue(DynamicArray *array)
 {
     if (array->size == 0) {
-        printf("Array is empty.\n");
+        cout<<"Array is empty."<<endl;
         return 0;
     }
     int max = array->data[0];
@@ -30,7 +33,7 @@ int findMaximumValue(DynamicArray *array)
 int findMinimumValue(DynamicArray *array)
 {
     if (array->size == 0) {
-        printf("Array is empty.\n");
+        cout<<"Array is empty."<<endl;
         return 0;
     }
     int min = array->data[0];
@@ -45,14 +48,14 @@ int findMinimumValue(DynamicArray *array)
 float calculateAverage(DynamicArray *array)
 {
     if (array->size == 0) {
-        printf("Array is empty.\n");
+        cout<<"Array is empty."<<endl;
         return 0;
     }
     int sum = 0;
     for (int i = 0; i < array->size; i++) {
         sum += array->data[i];
     }
-    return (float)sum / array->size;
+    return ((float)sum / array->size);
 }
 
 
@@ -97,33 +100,37 @@ void insertionSort(DynamicArray *array) {
 
 void saveData(DynamicArray *array)
 {
-    fptr = fopen("array.txt", "w");
-    if (fptr != 0) {
+    ofstream zapis("array.txt");
         for (int i = 0; i < array->size; i++) {
-            fprintf(fptr, "%d\n", array->data[i]);
+            zapis<<array->data[i]<<" ";
         }
-        fclose(fptr);
-        printf("Data saved to file successfully.\n");
-    } else {
-        printf("Error opening file!\n");
-    }
+       // zapis.close();
+        cout<<"Data saved to file successfully."<<endl;
 }
-
-
 
 void restoreDataFromFile (DynamicArray *array)
 {
-    fptr = fopen("array.txt", "r");
-    if (fptr != NULL) {
-        char fileLine[50];
-        while (fgets(fileLine, sizeof(fileLine), fptr) != 0) {
-            printf("%s", fileLine);
+        int temp = 0;
+        ifstream odczyt("array.txt");
+            //for (int i = 0; i < array->size; i++)
+            for (int i = 0; i < 2; i++)
+            {
+                odczyt >> temp;
+                cout<<"Temp = "<<temp<<endl;
+                array->data[i] = temp;
+            }
         }
-        fclose(fptr);
-        printf("Data restored from file successfully.\n");
-    } else {
-        printf("Error opening file!\n");
+
+
+void printDataFromFile (DynamicArray *array)
+{
+    ifstream odczyt("array.txt");
+    string fileLine;
+    while (getline(odczyt, fileLine)) {
+        cout << fileLine << endl;
     }
+    //odczyt.close();
+    cout<<"Data printed from file successfully."<<endl;
 }
 
 void enterValueIntoArray(DynamicArray *array, int toAdd)
@@ -136,7 +143,7 @@ void enterValueIntoArray(DynamicArray *array, int toAdd)
         }
         void *temp = realloc(array->data, array->capacity * sizeof(int));
         if (temp == NULL) {
-            printf("Error: Memory reallocation failed.\n");
+            cout<<"Error: Memory reallocation failed."<<endl;
             return;
         }
         array->data = (int *) temp;
@@ -148,7 +155,7 @@ void enterValueIntoArray(DynamicArray *array, int toAdd)
 void deleteValueFromArray(DynamicArray *array, int index)
 {
     if (index < 0 || index >= array->size) {
-        printf("Invalid index\n");
+        cout<<"Invalid index"<<endl;
         return;
     }
     for (int i = index; i < array->size - 1; i++) {
@@ -169,5 +176,5 @@ void freeArray(DynamicArray *array) {
     array->data = NULL;
     array->size = 0;
     array->capacity = 0;
-    printf("The board has been wiped clean\n");
+    cout<<"The board has been wiped clean"<<endl;
 }

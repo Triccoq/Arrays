@@ -1,25 +1,29 @@
 #include <iostream>
-#include <cstdlib>
+#include <stdio.h>
 #include "array.h"
+
 
 FILE *fptr;
 //int array[SIZE] = {1, 2, 3, 50, -5, 6, 7, 8, 9, 10};
 
+using namespace std;
+
 
 void menu(void) {
-    printf("\n");
-    printf("1- Display Array\n");
-    printf("2- Enter 1 Value Into Array\n");
-    printf("3- Maximum Value in Array\n");
-    printf("4- Minimum Value in Array\n");
-    printf("5- Average Value in Array\n");
-    printf("6- Median Value in Array \n");
-    printf("7- Save data into Array \n");
-    printf("8- Restore data from Array \n");
-    printf("9- Delete 1 value from Array \n");
-    printf("10- Free data in Array \n");
-    printf("0-EXIT\n");
-    printf("Select an option:  ");
+    cout<<endl;
+    cout<<"1- Display Array"<<endl;
+    cout<<"2- Enter 1 Value Into Array"<<endl;
+    cout<<"3- Maximum Value in Array"<<endl;
+    cout<<"4- Minimum Value in Array"<<endl;
+    cout<<"5- Average Value in Array"<<endl;
+    cout<<"6- Median Value in Array "<<endl;
+    cout<<"7- Save data into Array "<<endl;
+    cout<<"8- Restore data from Array "<<endl;
+    cout<<"9- Delete 1 value from Array "<<endl;
+    cout<<"10- Free data in Array "<<endl;
+    cout<<"11- Restore data to array from file"<<endl;
+    cout<<"0-EXIT"<<endl;
+    cout<<"Select an option:  ";
 }
 
 int main() {
@@ -29,8 +33,8 @@ int main() {
     int option=0;
     do{
         menu();
-        scanf("%d", &option);
-        printf(" \n");
+       cin>>option;
+        cout<<endl;
         switch (option) {
             case 0:
                 break;
@@ -40,50 +44,47 @@ int main() {
 
             case 2:
                 int toAdd;
-                printf("Which element to add?\n");
-                scanf("%d", &toAdd);
+                cout<<"Which element to add?"<<endl;
+                cin>>toAdd;
                 enterValueIntoArray(&array, toAdd );
                 break;
 
             case 3:
-                printf("Maximum value = %d \n", findMaximumValue(&array));
+                cout<<"Maximum value = "<< findMaximumValue(&array)<<endl;
                 break;
 
             case 4:
-                printf("Minimum value = %d \n", findMinimumValue(&array));
+                cout<<"Minimum value = "<< findMinimumValue(&array)<<endl;
                 break;
 
             case 5:
-                printf("Average value = %f \n", calculateAverage(&array));
+                cout<<"Average value = " << calculateAverage(&array)<<endl;
                 break;
             case 6:
-                printf("Median value = %d \n", findMedianValue(&array));
+                cout<<"Median value = " << findMedianValue(&array)<<endl;
                 break;
             case 7:
                 saveData(&array);
-                if(fptr!=0) {
-                    printf("Array saved to the file \n \n");
-                }
-                else {
-                    printf("Something went wrong... \n \n");
-                }
                 break;
             case 8:
-                restoreDataFromFile(&array);
+                printDataFromFile(&array);
                 break;
             case 9:
                 int toDelete;
-                printf("Which element to remove?\n");
-                scanf("%d", &toDelete);
+                cout<<"Which element to remove?"<<endl;
+                cin>>toDelete;
                 deleteValueFromArray(&array, toDelete);
                 break;
             case 10:
                 freeArray(&array);
                 break;
+            case 11:
+                restoreDataFromFile(&array);
+                break;
         }
 
     }while (option!=0);
-    printf("THE END");
+    cout<<"THE END"<<endl;
     freeArray(&array);
     return 1;
 

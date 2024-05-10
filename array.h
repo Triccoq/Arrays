@@ -7,8 +7,6 @@ typedef struct {
     int capacity;
 } DynamicArray;
 
-
-extern FILE *fptr;
 void displayArray(DynamicArray *array);
 int findMaximumValue(DynamicArray *array);
 int findMinimumValue(DynamicArray *array);
@@ -19,9 +17,10 @@ void deleteValueFromArray(DynamicArray *array, int index);
 int findMedianValue(DynamicArray *array);
 void insertionSort(DynamicArray *array);
 void saveData(DynamicArray *array);
-void restoreDataFromFile (DynamicArray *array);
+void printDataFromFile (DynamicArray *array);
 void freeArray(DynamicArray *array);
 void initializeArray(DynamicArray *array);
+void restoreDataFromFile (DynamicArray *array);
 #define Array_ARRAY_H
 
 #endif

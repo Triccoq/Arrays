@@ -104,21 +104,17 @@ void saveData(DynamicArray *array)
         for (int i = 0; i < array->size; i++) {
             zapis<<array->data[i]<<" ";
         }
-       // zapis.close();
+        zapis.close();
         cout<<"Data saved to file successfully."<<endl;
 }
 
 void restoreDataFromFile (DynamicArray *array)
 {
-        int temp = 0;
+        int value;
         ifstream odczyt("array.txt");
-            //for (int i = 0; i < array->size; i++)
-            for (int i = 0; i < 2; i++)
-            {
-                odczyt >> temp;
-                cout<<"Temp = "<<temp<<endl;
-                array->data[i] = temp;
-            }
+        while (odczyt >> value) {
+            enterValueIntoArray(array,value);
+    }
         }
 
 
@@ -129,7 +125,7 @@ void printDataFromFile (DynamicArray *array)
     while (getline(odczyt, fileLine)) {
         cout << fileLine << endl;
     }
-    //odczyt.close();
+    odczyt.close();
     cout<<"Data printed from file successfully."<<endl;
 }
 

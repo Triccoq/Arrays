@@ -18,7 +18,7 @@ void menu(void) {
     cout<<"5- Average Value in Array"<<endl;
     cout<<"6- Median Value in Array "<<endl;
     cout<<"7- Save data into Array "<<endl;
-    cout<<"8- Restore data from Array "<<endl;
+    cout<<"8- Print data from file "<<endl;
     cout<<"9- Delete 1 value from Array "<<endl;
     cout<<"10- Free data in Array "<<endl;
     cout<<"11- Restore data to array from file"<<endl;
@@ -29,7 +29,6 @@ void menu(void) {
 int main() {
     DynamicArray array;
     initializeArray(&array);
-    fptr=fopen("array.txt", "w");
     int option=0;
     do{
         menu();
@@ -80,12 +79,12 @@ int main() {
                 break;
             case 11:
                 restoreDataFromFile(&array);
+                cout<<"Data successfully restored from file"<<endl;
                 break;
         }
 
     }while (option!=0);
     cout<<"THE END"<<endl;
-    freeArray(&array);
     return 1;
 
 }
